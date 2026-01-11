@@ -45,6 +45,20 @@ export interface UIConfig {
         // Search bar
         search: boolean;
     };
+    userSettingsTabs: {
+        // User details tab (always shown if flow configured)
+        details: boolean;
+        // Sessions tab
+        sessions: boolean;
+        // Consent tab
+        consents: boolean;
+        // MFA Devices tab
+        mfa: boolean;
+        // Connected services tab
+        sources: boolean;
+        // Tokens and App passwords tab
+        tokens: boolean;
+    };
     navbar: {
         userDisplay: UserDisplay;
     };
@@ -72,6 +86,14 @@ export const DefaultUIConfig = {
         settings: true,
         applicationEdit: true,
         search: true,
+    },
+    userSettingsTabs: {
+        details: true,
+        sessions: true,
+        consents: true,
+        mfa: true,
+        sources: true,
+        tokens: true,
     },
     layout: {
         type: LayoutType.row,

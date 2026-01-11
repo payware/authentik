@@ -70,7 +70,8 @@ export class UserSettingsPage extends WithSession(AKElement) {
             this.userSettings?.filter((stage) => stage.component === "ak-user-settings-password") ||
             [];
 
-        const { currentUser } = this;
+        const { currentUser, uiConfig } = this;
+        const tabs = uiConfig.userSettingsTabs;
 
         return html`<div class="pf-c-page">
             <div class="pf-c-page__main">
@@ -80,109 +81,121 @@ export class UserSettingsPage extends WithSession(AKElement) {
                     aria-label=${msg("User settings")}
                     ${AKSkipToContent.ref}
                 >
-                    <div
-                        id="page-details"
-                        role="tabpanel"
-                        tabindex="0"
-                        slot="page-details"
-                        aria-label=${msg("User details")}
-                        class="pf-c-page__main-section pf-m-no-padding-mobile"
-                    >
-                        <div class="pf-l-stack pf-m-gutter">
-                            <div class="pf-l-stack__item">
-                                <ak-user-settings-flow-executor></ak-user-settings-flow-executor>
-                            </div>
-                            <div class="pf-l-stack__item">
-                                ${pwStage.length > 0
-                                    ? html`<ak-user-settings-password
-                                          configureUrl=${ifDefined(pwStage[0].configureUrl)}
-                                      ></ak-user-settings-password>`
-                                    : nothing}
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        id="page-sessions"
-                        role="tabpanel"
-                        tabindex="0"
-                        slot="page-sessions"
-                        aria-label=${msg("Sessions")}
-                        class="pf-c-page__main-section pf-m-no-padding-mobile"
-                    >
-                        <div class="pf-c-card">
-                            <div class="pf-c-card__body">
-                                <ak-user-session-list
-                                    targetUser=${ifPresent(currentUser?.username)}
-                                ></ak-user-session-list>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        id="page-consents"
-                        role="tabpanel"
-                        tabindex="0"
-                        slot="page-consents"
-                        aria-label=${msg("Consent")}
-                        class="pf-c-page__main-section pf-m-no-padding-mobile"
-                    >
-                        <div class="pf-c-card">
-                            <div class="pf-c-card__body">
-                                <ak-user-consent-list
-                                    userId=${ifPresent(currentUser?.pk)}
-                                ></ak-user-consent-list>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        id="page-mfa"
-                        role="tabpanel"
-                        tabindex="0"
-                        slot="page-mfa"
-                        aria-label=${msg("MFA Devices")}
-                        class="pf-c-page__main-section pf-m-no-padding-mobile"
-                    >
-                        <div class="pf-c-card">
-                            <div class="pf-c-card__body">
-                                <ak-user-settings-mfa
-                                    .userSettings=${this.userSettings}
-                                ></ak-user-settings-mfa>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        id="page-sources"
-                        role="tabpanel"
-                        tabindex="0"
-                        slot="page-sources"
-                        aria-label=${msg("Connected services")}
-                        class="pf-c-page__main-section pf-m-no-padding-mobile"
-                    >
-                        <div class="pf-c-card">
-                            <div class="pf-c-card__title">
-                                ${msg(
-                                    "Connect your user account to the services listed below, to allow you to login using the service instead of traditional credentials.",
-                                )}
-                            </div>
-                            <ak-user-settings-source
-                                allow-configuration
-                                userId=${ifPresent(currentUser?.pk)}
-                            ></ak-user-settings-source>
-                        </div>
-                    </div>
-                    <div
-                        id="page-tokens"
-                        role="tabpanel"
-                        tabindex="0"
-                        slot="page-tokens"
-                        aria-label=${msg("Tokens and App passwords")}
-                        class="pf-c-page__main-section pf-m-no-padding-mobile"
-                    >
-                        <div class="pf-c-card">
-                            <div class="pf-c-card__body">
-                                <ak-user-token-list></ak-user-token-list>
-                            </div>
-                        </div>
-                    </div>
+                    ${tabs.details !== false
+                        ? html`<div
+                              id="page-details"
+                              role="tabpanel"
+                              tabindex="0"
+                              slot="page-details"
+                              aria-label=${msg("User details")}
+                              class="pf-c-page__main-section pf-m-no-padding-mobile"
+                          >
+                              <div class="pf-l-stack pf-m-gutter">
+                                  <div class="pf-l-stack__item">
+                                      <ak-user-settings-flow-executor></ak-user-settings-flow-executor>
+                                  </div>
+                                  <div class="pf-l-stack__item">
+                                      ${pwStage.length > 0
+                                          ? html`<ak-user-settings-password
+                                                configureUrl=${ifDefined(pwStage[0].configureUrl)}
+                                            ></ak-user-settings-password>`
+                                          : nothing}
+                                  </div>
+                              </div>
+                          </div>`
+                        : nothing}
+                    ${tabs.sessions !== false
+                        ? html`<div
+                              id="page-sessions"
+                              role="tabpanel"
+                              tabindex="0"
+                              slot="page-sessions"
+                              aria-label=${msg("Sessions")}
+                              class="pf-c-page__main-section pf-m-no-padding-mobile"
+                          >
+                              <div class="pf-c-card">
+                                  <div class="pf-c-card__body">
+                                      <ak-user-session-list
+                                          targetUser=${ifPresent(currentUser?.username)}
+                                      ></ak-user-session-list>
+                                  </div>
+                              </div>
+                          </div>`
+                        : nothing}
+                    ${tabs.consents !== false
+                        ? html`<div
+                              id="page-consents"
+                              role="tabpanel"
+                              tabindex="0"
+                              slot="page-consents"
+                              aria-label=${msg("Consent")}
+                              class="pf-c-page__main-section pf-m-no-padding-mobile"
+                          >
+                              <div class="pf-c-card">
+                                  <div class="pf-c-card__body">
+                                      <ak-user-consent-list
+                                          userId=${ifPresent(currentUser?.pk)}
+                                      ></ak-user-consent-list>
+                                  </div>
+                              </div>
+                          </div>`
+                        : nothing}
+                    ${tabs.mfa !== false
+                        ? html`<div
+                              id="page-mfa"
+                              role="tabpanel"
+                              tabindex="0"
+                              slot="page-mfa"
+                              aria-label=${msg("MFA Devices")}
+                              class="pf-c-page__main-section pf-m-no-padding-mobile"
+                          >
+                              <div class="pf-c-card">
+                                  <div class="pf-c-card__body">
+                                      <ak-user-settings-mfa
+                                          .userSettings=${this.userSettings}
+                                      ></ak-user-settings-mfa>
+                                  </div>
+                              </div>
+                          </div>`
+                        : nothing}
+                    ${tabs.sources !== false
+                        ? html`<div
+                              id="page-sources"
+                              role="tabpanel"
+                              tabindex="0"
+                              slot="page-sources"
+                              aria-label=${msg("Connected services")}
+                              class="pf-c-page__main-section pf-m-no-padding-mobile"
+                          >
+                              <div class="pf-c-card">
+                                  <div class="pf-c-card__title">
+                                      ${msg(
+                                          "Connect your user account to the services listed below, to allow you to login using the service instead of traditional credentials.",
+                                      )}
+                                  </div>
+                                  <ak-user-settings-source
+                                      allow-configuration
+                                      userId=${ifPresent(currentUser?.pk)}
+                                  ></ak-user-settings-source>
+                              </div>
+                          </div>`
+                        : nothing}
+                    ${tabs.tokens !== false
+                        ? html`<div
+                              id="page-tokens"
+                              role="tabpanel"
+                              tabindex="0"
+                              slot="page-tokens"
+                              aria-label=${msg("Tokens and App passwords")}
+                              class="pf-c-page__main-section pf-m-no-padding-mobile"
+                          >
+                              <div class="pf-c-card">
+                                  <div class="pf-c-card__body">
+                                      <ak-user-token-list></ak-user-token-list>
+                                  </div>
+                              </div>
+                          </div>`
+                        : nothing}
                 </ak-tabs>
             </div>
         </div>`;
