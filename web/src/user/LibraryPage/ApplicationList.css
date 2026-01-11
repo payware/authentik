@@ -130,13 +130,9 @@ ak-app-icon {
 
 /* #region Group Header */
 
+/* payware customization: Hide app group headers */
 [part="app-group-header"] {
-    @media not (prefers-contrast: more) {
-        --ak-legend-padding-inline-base: 1rem;
-        padding-block-start: 0 !important;
-        padding-inline: 0 !important;
-        margin-inline: 0 !important;
-    }
+    display: none !important;
 }
 
 /* #region App List */

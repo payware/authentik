@@ -1,0 +1,18 @@
+# Development override for translation work
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+#
+# This mounts the locally-built web/dist/ into the container so you can
+# iterate on translations without rebuilding the Docker image.
+#
+# Workflow:
+# 1. First time: cd web && npm install && npm run build
+# 2. Start: docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+# 3. Edit xliff/bg-BG.xlf
+# 4. Rebuild: npm run build-locales && npm run build
+# 5. Hard refresh browser (Ctrl+Shift+R)
+# 6. Repeat from step 3
+
+services:
+  server:
+    volumes:
+      - ./web/dist:/web/dist:ro

@@ -3,6 +3,11 @@
     padding: 3% 5%;
 }
 
+/* payware customization: Hide "My applications" header and search */
+.pf-c-page__header.pf-c-content {
+    display: none !important;
+}
+
 .pf-c-page {
     --pf-c-page--BackgroundColor: transparent;
     --pf-c-page__main-section--BackgroundColor: transparent !important;
