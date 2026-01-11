@@ -9860,6 +9860,90 @@ Las vinculaciones a grupos/usuarios se verifican en función del usuario del eve
 <trans-unit id="s567c5a6e42cc5036">
   <source>Maximum page size for API requests.</source>
 </trans-unit>
+<!-- #region Prompt Labels -->
+<trans-unit id="prompt-label-password">
+  <source>Password</source>
+  <target>Contraseña</target>
+  <note from="lit-localize">Prompt label for password field</note>
+</trans-unit>
+<trans-unit id="prompt-label-new-password">
+  <source>New Password</source>
+  <target>Nueva contraseña</target>
+  <note from="lit-localize">Prompt label for new password field</note>
+</trans-unit>
+<trans-unit id="prompt-label-repeat-new-password">
+  <source>Repeat New Password</source>
+  <target>Repetir nueva contraseña</target>
+  <note from="lit-localize">Prompt label for repeat new password field</note>
+</trans-unit>
+<trans-unit id="prompt-label-password-repeat">
+  <source>Password (repeat)</source>
+  <target>Contraseña (repetir)</target>
+  <note from="lit-localize">Prompt label for password repeat field</note>
+</trans-unit>
+<trans-unit id="prompt-label-repeat-password">
+  <source>Repeat Password</source>
+  <target>Repetir contraseña</target>
+  <note from="lit-localize">Prompt label for repeat password field</note>
+</trans-unit>
+<trans-unit id="prompt-label-first-name">
+  <source>First Name</source>
+  <target>Nombre</target>
+  <note from="lit-localize">Prompt label for first name field</note>
+</trans-unit>
+<trans-unit id="prompt-label-last-name">
+  <source>Last Name</source>
+  <target>Apellido</target>
+  <note from="lit-localize">Prompt label for last name field</note>
+</trans-unit>
+<trans-unit id="prompt-label-email">
+  <source>Email</source>
+  <target>Correo electrónico</target>
+  <note from="lit-localize">Prompt label for email field</note>
+</trans-unit>
+<trans-unit id="prompt-label-username">
+  <source>Username</source>
+  <target>Nombre de usuario</target>
+  <note from="lit-localize">Prompt label for username field</note>
+</trans-unit>
+<trans-unit id="prompt-subtext-password-requirements">
+  <source>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</source>
+  <target>La contraseña debe tener al menos 8 caracteres e incluir mayúsculas, minúsculas, números y caracteres especiales.</target>
+  <note from="lit-localize">Password requirements hint text</note>
+</trans-unit>
+<!-- #endregion -->
+<!-- #region Flow Titles -->
+<trans-unit id="flow-title-sign-in">
+  <source>Sign In</source>
+  <target>Iniciar sesión</target>
+  <note from="lit-localize">Flow title for authentication/login flows</note>
+</trans-unit>
+<trans-unit id="flow-title-reset-password">
+  <source>Reset Password</source>
+  <target>Restablecer contraseña</target>
+  <note from="lit-localize">Flow title for password recovery flows</note>
+</trans-unit>
+<trans-unit id="flow-title-change-password">
+  <source>Change Password</source>
+  <target>Cambiar contraseña</target>
+  <note from="lit-localize">Flow title for password change flows</note>
+</trans-unit>
+<trans-unit id="flow-title-register">
+  <source>Register</source>
+  <target>Registrarse</target>
+  <note from="lit-localize">Flow title for enrollment/registration flows</note>
+</trans-unit>
+<trans-unit id="flow-title-update-profile">
+  <source>Update Profile</source>
+  <target>Actualizar perfil</target>
+  <note from="lit-localize">Flow title for user settings/profile update flows</note>
+</trans-unit>
+<trans-unit id="flow-title-complete-account">
+  <source>Complete Your Account</source>
+  <target>Completar tu cuenta</target>
+  <note from="lit-localize">Flow title for invitation/account completion flows</note>
+</trans-unit>
+<!-- #endregion -->
 </body>
 </file>
 </xliff>

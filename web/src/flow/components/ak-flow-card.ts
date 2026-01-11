@@ -7,12 +7,30 @@ import { SlottedTemplateResult } from "#elements/types";
 
 import { ChallengeTypes } from "@goauthentik/api";
 
+import { msg } from "@lit/localize";
 import { CSSResult, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 import PFLogin from "@patternfly/patternfly/components/Login/login.css";
 import PFTitle from "@patternfly/patternfly/components/Title/title.css";
 import PFBase from "@patternfly/patternfly/patternfly-base.css";
+
+/**
+ * Translates common flow titles to the current locale.
+ * Falls back to the original title if no translation is found.
+ */
+function translateFlowTitle(title: string): string {
+    const translations: Record<string, () => string> = {
+        "Sign In": () => msg("Sign In", { id: "flow-title-sign-in" }),
+        "Reset Password": () => msg("Reset Password", { id: "flow-title-reset-password" }),
+        "Change Password": () => msg("Change Password", { id: "flow-title-change-password" }),
+        "Register": () => msg("Register", { id: "flow-title-register" }),
+        "Update Profile": () => msg("Update Profile", { id: "flow-title-update-profile" }),
+        "Complete Your Account": () =>
+            msg("Complete Your Account", { id: "flow-title-complete-account" }),
+    };
+    return translations[title]?.() ?? title;
+}
 
 /**
  * @element ak-flow-card
@@ -45,7 +63,8 @@ export class FlowCard extends AKElement {
         if (this.hasSlotted("title")) {
             title = html`<h1 class="pf-c-title pf-m-3xl"><slot name="title"></slot></h1>`;
         } else if (this.challenge?.flowInfo?.title) {
-            title = html`<h1 class="pf-c-title pf-m-3xl">${this.challenge.flowInfo.title}</h1>`;
+            const translatedTitle = translateFlowTitle(this.challenge.flowInfo.title);
+            title = html`<h1 class="pf-c-title pf-m-3xl">${translatedTitle}</h1>`;
         }
         const footer = this.hasSlotted("footer") ? html`<slot name="footer"></slot>` : null;
         const footerBand = this.hasSlotted("footer-band")

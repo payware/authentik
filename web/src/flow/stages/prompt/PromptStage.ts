@@ -23,6 +23,43 @@ import { css, CSSResult, html, nothing, TemplateResult } from "lit";
 import { customElement } from "lit/decorators.js";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 
+/**
+ * Translates common prompt labels to the current locale.
+ * Falls back to the original label if no translation is found.
+ */
+function translatePromptLabel(label: string): string {
+    const translations: Record<string, () => string> = {
+        "Password": () => msg("Password", { id: "prompt-label-password" }),
+        "New Password": () => msg("New Password", { id: "prompt-label-new-password" }),
+        "Repeat New Password": () =>
+            msg("Repeat New Password", { id: "prompt-label-repeat-new-password" }),
+        "Password (repeat)": () =>
+            msg("Password (repeat)", { id: "prompt-label-password-repeat" }),
+        "Repeat Password": () => msg("Repeat Password", { id: "prompt-label-repeat-password" }),
+        "First Name": () => msg("First Name", { id: "prompt-label-first-name" }),
+        "Last Name": () => msg("Last Name", { id: "prompt-label-last-name" }),
+        "Email": () => msg("Email", { id: "prompt-label-email" }),
+        "Username": () => msg("Username", { id: "prompt-label-username" }),
+    };
+    return translations[label]?.() ?? label;
+}
+
+/**
+ * Translates common prompt sub_text/help text to the current locale.
+ * Falls back to the original text if no translation is found.
+ */
+function translatePromptSubText(subText: string): string {
+    const translations: Record<string, () => string> = {
+        "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.":
+            () =>
+                msg(
+                    "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.",
+                    { id: "prompt-subtext-password-requirements" },
+                ),
+    };
+    return translations[subText]?.() ?? subText;
+}
+
 import PFAlert from "@patternfly/patternfly/components/Alert/alert.css";
 import PFButton from "@patternfly/patternfly/components/Button/button.css";
 import PFCheck from "@patternfly/patternfly/components/Check/check.css";
@@ -253,8 +290,8 @@ ${prompt.initialValue}</textarea
         if (!prompt.subText) {
             return nothing;
         }
-
-        return html`<p class="pf-c-form__helper-text">${unsafeHTML(prompt.subText)}</p>`;
+        const translatedSubText = translatePromptSubText(prompt.subText);
+        return html`<p class="pf-c-form__helper-text">${unsafeHTML(translatedSubText)}</p>`;
     }
 
     shouldRenderInWrapper(prompt: StagePrompt): boolean {
@@ -267,8 +304,12 @@ ${prompt.initialValue}</textarea
     }
 
     renderField(prompt: StagePrompt): TemplateResult {
+        const translatedLabel = translatePromptLabel(prompt.label);
         // Checkbox is rendered differently
         if (prompt.type === PromptTypeEnum.Checkbox) {
+            const translatedSubText = prompt.subText
+                ? translatePromptSubText(prompt.subText)
+                : "";
             return html`<div class="pf-c-check">
                 <input
                     type="checkbox"
@@ -278,11 +319,13 @@ ${prompt.initialValue}</textarea
                     ?checked=${prompt.initialValue !== ""}
                     ?required=${prompt.required}
                 />
-                <label class="pf-c-check__label" for="${prompt.fieldKey}">${prompt.label}</label>
+                <label class="pf-c-check__label" for="${prompt.fieldKey}"
+                    >${translatedLabel}</label
+                >
                 ${prompt.required
                     ? html`<p class="pf-c-form__helper-text">${msg("Required.")}</p>`
                     : nothing}
-                <p class="pf-c-form__helper-text">${unsafeHTML(prompt.subText)}</p>
+                <p class="pf-c-form__helper-text">${unsafeHTML(translatedSubText)}</p>
             </div>`;
         }
         if (this.shouldRenderInWrapper(prompt)) {
@@ -294,7 +337,7 @@ ${prompt.initialValue}</textarea
                         required: prompt.required,
                         htmlFor: `field-${prompt.fieldKey}`,
                     },
-                    prompt.label,
+                    translatedLabel,
                 )}
                 ${this.renderPromptInner(prompt)} ${this.renderPromptHelpText(prompt)}
                 ${AKFormErrors({ errors })}
