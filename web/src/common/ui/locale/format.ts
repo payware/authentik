@@ -1,4 +1,4 @@
-import { allLocales } from "../../../locale-codes.js";
+import { allLocales as _allLocales } from "../../../locale-codes.js";
 
 import { CJKLanguageTag, isCJKLanguageTag, isHanLanguageTag } from "#common/ui/locale/cjk";
 import {
@@ -11,6 +11,10 @@ import { safeParseLocale } from "#common/ui/locale/utils";
 import { msg, str } from "@lit/localize";
 import { html } from "lit";
 import { repeat } from "lit/directives/repeat.js";
+
+// Filter to only show specific locales in the UI (payware customization)
+const ALLOWED_LOCALES = new Set(["en", "bg-BG", "es-ES"]);
+const allLocales = _allLocales.filter((locale) => ALLOWED_LOCALES.has(locale));
 
 /**
  * Safely get a minimized locale ID, with fallback for older browsers.
