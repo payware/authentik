@@ -34,6 +34,7 @@ export interface AKLibraryApplicationListProps extends HTMLAttributes<HTMLDivEle
     background?: string | null;
     selectedApp?: Application | null;
     targetRef?: RefOrCallback | null;
+    showGroupHeaders?: boolean;
 }
 
 /**
@@ -46,6 +47,7 @@ export const AKLibraryApplicationList: LitFC<AKLibraryApplicationListProps> = ({
     background,
     selectedApp,
     targetRef,
+    showGroupHeaders = true,
     ...props
 }) => {
     const columnCount = LayoutColumnCount[layout] ?? 1;
@@ -72,12 +74,18 @@ export const AKLibraryApplicationList: LitFC<AKLibraryApplicationListProps> = ({
                     data-app-count=${apps.length}
                     aria-activedescendant=${activeDescendantID}
                 >
-                    <legend
-                        class="pf-c-content ${!groupLabel ? "sr-only more-contrast-only" : ""}"
-                        part="app-group-header"
-                    >
-                        <h2 id=${`app-group-${groupID}`}>${groupLabel || msg("Ungrouped")}</h2>
-                    </legend>
+                    ${showGroupHeaders
+                        ? html`<legend
+                              class="pf-c-content ${!groupLabel
+                                  ? "sr-only more-contrast-only"
+                                  : ""}"
+                              part="app-group-header"
+                          >
+                              <h2 id=${`app-group-${groupID}`}>
+                                  ${groupLabel || msg("Ungrouped")}
+                              </h2>
+                          </legend>`
+                        : nothing}
                     ${repeat(
                         apps,
                         (application) => application.pk,

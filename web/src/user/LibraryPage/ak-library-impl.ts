@@ -115,6 +115,14 @@ export class LibraryPage extends WithSession(AKElement) {
         return this.uiConfig.enabledFeatures.search ?? true;
     }
 
+    public get libraryTitleEnabled(): boolean {
+        return this.uiConfig.enabledFeatures.libraryTitle ?? true;
+    }
+
+    public get appGroupHeadersEnabled(): boolean {
+        return this.uiConfig.enabledFeatures.appGroupHeaders ?? true;
+    }
+
     //#endregion
 
     //#region State
@@ -303,6 +311,7 @@ export class LibraryPage extends WithSession(AKElement) {
             selectedApp,
             groupedApps,
             targetRef: this.targetRef,
+            showGroupHeaders: this.appGroupHeadersEnabled,
         });
     }
 
@@ -388,11 +397,17 @@ export class LibraryPage extends WithSession(AKElement) {
                     : msg(str`${count} applications available`);
         }
 
+        const showHeader = this.libraryTitleEnabled || this.searchEnabled;
+
         return html`<div class="pf-c-page__main">
-            <div class="pf-c-page__header pf-c-content">
-                <h1 class="pf-c-page__title">${msg("My applications")}</h1>
-                ${this.searchEnabled ? this.renderSearch() : nothing}
-            </div>
+            ${showHeader
+                ? html`<div class="pf-c-page__header pf-c-content">
+                      ${this.libraryTitleEnabled
+                          ? html`<h1 class="pf-c-page__title">${msg("My applications")}</h1>`
+                          : nothing}
+                      ${this.searchEnabled ? this.renderSearch() : nothing}
+                  </div>`
+                : nothing}
             <main
                 ${AKSkipToContent.ref}
                 id="main-content"

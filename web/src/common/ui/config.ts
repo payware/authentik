@@ -44,6 +44,10 @@ export interface UIConfig {
         applicationEdit: boolean;
         // Search bar
         search: boolean;
+        // "My applications" title on library page
+        libraryTitle: boolean;
+        // App group headers on library page
+        appGroupHeaders: boolean;
     };
     userSettingsTabs: {
         // User details tab (always shown if flow configured)
@@ -86,6 +90,8 @@ export const DefaultUIConfig = {
         settings: true,
         applicationEdit: true,
         search: true,
+        libraryTitle: true,
+        appGroupHeaders: true,
     },
     userSettingsTabs: {
         details: true,
