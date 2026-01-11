@@ -32,6 +32,7 @@ const sourceTargetModule: LocaleModule = {
 export const LocaleLoaderRecord: Record<TargetLanguageTag, () => Promise<LocaleModule>> = {
     [SourceLanguageTag]: () => Promise.resolve(sourceTargetModule),
     [PseudoLanguageTag]: () => import("#locales/en-XA"),
+    "bg-BG": () => import("#locales/bg-BG"),
     "cs-CZ": () => import("#locales/cs-CZ"),
     "de-DE": () => import("#locales/de-DE"),
     "es-ES": () => import("#locales/es-ES"),
