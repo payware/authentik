@@ -5,7 +5,7 @@ import { isActiveElement } from "#elements/utils/focus";
 import { AKFormErrors, ErrorProp } from "#components/ak-field-errors";
 import { AKLabel } from "#components/ak-label";
 
-import { msg } from "@lit/localize";
+import { LOCALE_STATUS_EVENT, msg } from "@lit/localize";
 import { html, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
@@ -22,20 +22,21 @@ import PFBase from "@patternfly/patternfly/patternfly-base.css";
  */
 interface VisibilityProps {
     icon: string;
-    label: string;
+    label: () => string;
 }
 
 /**
  * Enum-like object for the visibility states of the password input.
+ * Labels are functions to ensure translations are evaluated at render time.
  */
 const Visibility = {
     Reveal: {
         icon: "fa-eye",
-        label: msg("Show password"),
+        label: () => msg("Show password"),
     },
     Mask: {
         icon: "fa-eye-slash",
-        label: msg("Hide password"),
+        label: () => msg("Hide password"),
     },
 } as const satisfies Record<string, VisibilityProps>;
 
@@ -205,6 +206,13 @@ export class InputPassword extends AKElement {
         console.debug("authentik/stages/password: started focus observer");
     }
 
+    #localeStatusListener = (event: Event) => {
+        const detail = (event as CustomEvent).detail;
+        if (detail.status === "ready") {
+            this.requestUpdate();
+        }
+    };
+
     connectedCallback() {
         super.connectedCallback();
 
@@ -212,6 +220,7 @@ export class InputPassword extends AKElement {
 
         addEventListener("keydown", this.capsLockListener);
         addEventListener("keyup", this.capsLockListener);
+        window.addEventListener(LOCALE_STATUS_EVENT, this.#localeStatusListener);
     }
 
     disconnectedCallback() {
@@ -223,6 +232,7 @@ export class InputPassword extends AKElement {
 
         removeEventListener("keydown", this.capsLockListener);
         removeEventListener("keyup", this.capsLockListener);
+        window.removeEventListener(LOCALE_STATUS_EVENT, this.#localeStatusListener);
     }
 
     //#endregion
@@ -262,7 +272,7 @@ export class InputPassword extends AKElement {
 
         toggleElement.setAttribute(
             "aria-label",
-            masked ? Visibility.Reveal.label : Visibility.Mask.label,
+            masked ? Visibility.Reveal.label() : Visibility.Mask.label(),
         );
 
         const iconElement = toggleElement.querySelector("i")!;
@@ -274,16 +284,16 @@ export class InputPassword extends AKElement {
     renderVisibilityToggle() {
         if (!this.allowShowPassword) return nothing;
 
-        const { label, icon } = this.passwordVisible ? Visibility.Mask : Visibility.Reveal;
+        const visibility = this.passwordVisible ? Visibility.Mask : Visibility.Reveal;
 
         return html`<button
             ${ref(this.toggleVisibilityRef)}
-            aria-label=${label}
+            aria-label=${visibility.label()}
             @click=${this.togglePasswordVisibility}
             class="pf-c-button pf-m-control"
             type="button"
         >
-            <i class="fas ${icon}" aria-hidden="true"></i>
+            <i class="fas ${visibility.icon}" aria-hidden="true"></i>
         </button>`;
     }
 

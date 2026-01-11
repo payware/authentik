@@ -7,7 +7,7 @@ import { FocusTarget } from "#elements/utils/focus";
 
 import { ContextualFlowInfo, CurrentBrand, ErrorDetail } from "@goauthentik/api";
 
-import { msg } from "@lit/localize";
+import { LOCALE_STATUS_EVENT, msg } from "@lit/localize";
 import { html, LitElement, nothing, PropertyValues } from "lit";
 import { property } from "lit/decorators.js";
 import { ifDefined } from "lit/directives/if-defined.js";
@@ -85,12 +85,21 @@ export abstract class BaseStage<
         this.autofocusTarget.focus();
     };
 
+    #localeStatusListener = (event: Event) => {
+        const detail = (event as CustomEvent).detail;
+        if (detail.status === "ready") {
+            // Force re-render when locale is ready
+            this.requestUpdate();
+        }
+    };
+
     public override connectedCallback(): void {
         super.connectedCallback();
 
         this.addEventListener("focus", this.autofocusTarget.toEventListener());
 
         document.addEventListener("visibilitychange", this.#visibilityListener);
+        window.addEventListener(LOCALE_STATUS_EVENT, this.#localeStatusListener);
     }
 
     public override disconnectedCallback(): void {
@@ -99,6 +108,7 @@ export abstract class BaseStage<
         this.removeEventListener("focus", this.autofocusTarget.toEventListener());
 
         document.removeEventListener("visibilitychange", this.#visibilityListener);
+        window.removeEventListener(LOCALE_STATUS_EVENT, this.#localeStatusListener);
     }
 
     public updated(changed: PropertyValues<this>): void {

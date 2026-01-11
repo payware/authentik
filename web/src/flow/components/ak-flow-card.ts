@@ -7,7 +7,7 @@ import { SlottedTemplateResult } from "#elements/types";
 
 import { ChallengeTypes } from "@goauthentik/api";
 
-import { msg } from "@lit/localize";
+import { LOCALE_STATUS_EVENT, msg } from "@lit/localize";
 import { CSSResult, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
@@ -52,6 +52,23 @@ export class FlowCard extends AKElement {
     loading = false;
 
     static styles: CSSResult[] = [PFBase, PFLogin, PFTitle, Styles];
+
+    #localeStatusListener = (event: Event) => {
+        const detail = (event as CustomEvent).detail;
+        if (detail.status === "ready") {
+            this.requestUpdate();
+        }
+    };
+
+    connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener(LOCALE_STATUS_EVENT, this.#localeStatusListener);
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener(LOCALE_STATUS_EVENT, this.#localeStatusListener);
+    }
 
     render() {
         let inner = html`<slot></slot>`;
