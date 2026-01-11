@@ -7370,19 +7370,23 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="s30d6ff9e15e0a40a">
   <source>Verifying...</source>
+  <target>Проверка...</target>
 </trans-unit>
 <trans-unit id="s1c336c2d6cef77b3">
   <source>Remember me on this device</source>
-<target>Запомни ме на това устройство</target>
+  <target>Запомни ме на това устройство</target>
 </trans-unit>
 <trans-unit id="seb6ab868740e4e36">
   <source>Continue with <x id="0" equiv-text="${source.name}"/></source>
+  <target>Продължи с <x id="0" equiv-text="${source.name}"/></target>
 </trans-unit>
 <trans-unit id="sc4eedb434536bdb4">
   <source>Need an account?</source>
+  <target>Нямате акаунт?</target>
 </trans-unit>
 <trans-unit id="s38f774cd7e9b9dad">
   <source>Sign up.</source>
+  <target>Регистрация.</target>
 </trans-unit>
 <trans-unit id="sa03aa46068460c95">
   <source>Forgot username or password?</source>
@@ -7404,12 +7408,15 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="s670ad066cc0e50a3">
   <source>Login to continue to <x id="0" equiv-text="${this.challenge.applicationPre}"/>.</source>
+  <target>Влезте, за да продължите към <x id="0" equiv-text="${this.challenge.applicationPre}"/>.</target>
 </trans-unit>
 <trans-unit id="se5fd752dbbc3cd28">
   <source>Use a security key</source>
+  <target>Използвайте ключ за сигурност</target>
 </trans-unit>
 <trans-unit id="s53dddf1733e26c98">
   <source>Login sources</source>
+  <target>Източници за вход</target>
 </trans-unit>
 <trans-unit id="s85366fac18679f28">
   <source>Forgot password?</source>
@@ -7432,9 +7439,11 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="sbd19064fc3f405c1">
   <source>Check your Inbox for a verification email.</source>
+  <target>Проверете входящата си поща за имейл за потвърждение.</target>
 </trans-unit>
 <trans-unit id="s8aff572e64b7936b">
   <source>Send Email again.</source>
+  <target>Изпрати имейл отново.</target>
 </trans-unit>
 <trans-unit id="sc091f75b942ec081">
   <source>QR-Code to setup a time-based one-time password</source>
@@ -7511,18 +7520,23 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="s844fea0bfb10a72a">
   <source>Authentication code</source>
+  <target>Код за удостоверяване</target>
 </trans-unit>
 <trans-unit id="s7abc9d08b0f70fd6">
   <source>Static token</source>
+  <target>Статичен токен</target>
 </trans-unit>
 <trans-unit id="s14e8ac4d377a1a99">
   <source>Type an authentication code...</source>
+  <target>Въведете код за удостоверяване...</target>
 </trans-unit>
 <trans-unit id="s39002897db60bb28">
   <source>Sending Duo push notification...</source>
+  <target>Изпращане на Duo известие...</target>
 </trans-unit>
 <trans-unit id="sd2b8c1caa0340ed6">
   <source>Failed to authenticate</source>
+  <target>Неуспешно удостоверяване</target>
 </trans-unit>
 <trans-unit id="s363abde8a254ea5f">
   <source>Authentication failed. Please try again.</source>
@@ -7585,12 +7599,15 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="sac17f177f884e238">
   <source>Stay signed in?</source>
+  <target>Да останете ли влезли?</target>
 </trans-unit>
 <trans-unit id="s859b2e00391da380">
   <source>Select Yes to reduce the number of times you're asked to sign in.</source>
+  <target>Изберете Да, за да намалите броя пъти, когато ви се иска да влезете.</target>
 </trans-unit>
 <trans-unit id="s23da7320dee28a60">
   <source>Device Code</source>
+  <target>Код на устройството</target>
 </trans-unit>
 <trans-unit id="s3cd84e82e83e35ad">
   <source>Please enter your code</source>
@@ -7598,18 +7615,23 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="s455a8fc21077e7f9">
   <source>You've successfully authenticated your device.</source>
+  <target>Успешно удостоверихте устройството си.</target>
 </trans-unit>
 <trans-unit id="sac88482c48453fc8">
   <source>You've logged out of <x id="0" equiv-text="${this.challenge.applicationName}"/>. You can go back to the overview to launch another application, or log out of your authentik account.</source>
+  <target>Излязохте от <x id="0" equiv-text="${this.challenge.applicationName}"/>. Можете да се върнете към прегледа, за да стартирате друго приложение, или да излезете от акаунта си.</target>
 </trans-unit>
 <trans-unit id="s3108167b562674e2">
   <source>Go back to overview</source>
+  <target>Обратно към прегледа</target>
 </trans-unit>
 <trans-unit id="sdb749e793de55478">
   <source>Log out of <x id="0" equiv-text="${this.challenge.brandName}"/></source>
+  <target>Изход от <x id="0" equiv-text="${this.challenge.brandName}"/></target>
 </trans-unit>
 <trans-unit id="s521681ed1d5ff814">
   <source>Log back into <x id="0" equiv-text="${this.challenge.applicationName}"/></source>
+  <target>Влезте отново в <x id="0" equiv-text="${this.challenge.applicationName}"/></target>
 </trans-unit>
 <trans-unit id="s78869b8b2bc26d0d">
   <source>SAML Provider</source>
@@ -7796,9 +7818,11 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="sff945d3f59b93c5e">
   <source>MFA Devices</source>
+  <target>MFA Устройства</target>
 </trans-unit>
 <trans-unit id="sd1031bddc66dc495">
   <source>Connect your user account to the services listed below, to allow you to login using the service instead of traditional credentials.</source>
+  <target>Свържете потребителския си акаунт с услугите, изброени по-долу, за да можете да влизате чрез тях вместо с традиционни идентификационни данни.</target>
 </trans-unit>
 <trans-unit id="s5599c62bb78c631f">
   <source>Admin interface</source>
