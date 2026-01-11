@@ -4964,6 +4964,7 @@ doesn't pass when either or both of the selected options are equal or above the 
 </trans-unit>
 <trans-unit id="s1b88fa3df4423292">
   <source>Last IP</source>
+  <target>Последен IP</target>
 </trans-unit>
 <trans-unit id="s6d3f81dc4bcacbda">
   <source>Last used</source>
@@ -5008,6 +5009,7 @@ doesn't pass when either or both of the selected options are equal or above the 
 </trans-unit>
 <trans-unit id="s7968dbed9b106c29">
   <source>No services available.</source>
+  <target>Няма налични услуги.</target>
 </trans-unit>
 <trans-unit id="s20b2b040b332bb55">
   <source>Source Settings</source>
@@ -5078,6 +5080,7 @@ doesn't pass when either or both of the selected options are equal or above the 
 </trans-unit>
 <trans-unit id="sc54aafeea9c9bab0">
   <source>Connected services</source>
+  <target>Свързани услуги</target>
 </trans-unit>
 <trans-unit id="sac428446e9e41f54">
   <source>RAC Connections</source>
@@ -5567,18 +5570,23 @@ doesn't pass when either or both of the selected options are equal or above the 
 </trans-unit>
 <trans-unit id="s97d1b0070f50c07f">
   <source>Static Tokens</source>
+  <target>Статични токени</target>
 </trans-unit>
 <trans-unit id="sb8168ae309c66abc">
   <source>TOTP Authenticators</source>
+  <target>TOTP удостоверители</target>
 </trans-unit>
 <trans-unit id="sde47e4d8b9b21b59">
   <source>WebAuthn Authenticators</source>
+  <target>WebAuthn удостоверители</target>
 </trans-unit>
 <trans-unit id="s8da88a8a5750bce1">
   <source>Duo Authenticators</source>
+  <target>Duo удостоверители</target>
 </trans-unit>
 <trans-unit id="s4d182bae8a578010">
   <source>SMS-based Authenticators</source>
+  <target>SMS удостоверители</target>
 </trans-unit>
 <trans-unit id="s15986693bfc99fb7">
   <source>Email-based Authenticators</source>
@@ -7150,6 +7158,7 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="sc6b4ebd37b7a91c7">
   <source>Tokens and App passwords</source>
+  <target>Токени и пароли за приложения</target>
 </trans-unit>
 <trans-unit id="sa81e2cdaf6921adc">
   <source>System</source>
@@ -7790,12 +7799,14 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="sb546eb04425e07fa">
   <source>Update details</source>
+  <target>Обнови данните</target>
 </trans-unit>
 <trans-unit id="s013620384af7c8b4">
   <source>Device type <x id="0" equiv-text="${device.verboseName}"/> cannot be edited</source>
 </trans-unit>
 <trans-unit id="s6a406aecb2c0e5c5">
   <source>Enroll</source>
+  <target>Регистрирай</target>
 </trans-unit>
 <trans-unit id="s64de9eceb8172269">
   <source>Edit device</source>
@@ -8393,6 +8404,7 @@ Bindings to groups/users are checked against the user of the event.</source>
 </trans-unit>
 <trans-unit id="s54e4d61fc46a14be">
   <source>No MFA devices enrolled.</source>
+  <target>Няма регистрирани MFA устройства.</target>
 </trans-unit>
 <trans-unit id="s227aacd5a7fc6f50">
   <source>User Tokens</source>
