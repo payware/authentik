@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      - 'version/2025.10*-bg'
+      - 'version/2025.12*-bg'
   workflow_dispatch:
 
 env:
@@ -28,7 +30,7 @@ jobs:
 
       - name: Download generated API client
         run: |
-          npm pack @goauthentik/api@2025.10.0 || npm pack @goauthentik/api@latest
+          npm pack @goauthentik/api@2025.12.0 || npm pack @goauthentik/api@latest
           mkdir -p gen-ts-api
           tar -xzf goauthentik-api-*.tgz -C gen-ts-api --strip-components=1
           ls -la gen-ts-api/
@@ -49,6 +51,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
+            type=raw,value=2025.12.0-rc3-bg
             type=raw,value=bg-latest
             type=sha,prefix=bg-
 
@@ -56,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./lifecycle/container/Dockerfile
+          file: ./Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -64,4 +67,4 @@ jobs:
           cache-to: type=gha,mode=max
           build-args: |
             GIT_BUILD_HASH=${{ github.sha }}
-            VERSION=bg-${{ github.sha }}
+            VERSION=2025.12.0-rc3-bg
