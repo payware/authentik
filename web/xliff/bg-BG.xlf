@@ -8416,6 +8416,33 @@ Bindings to groups/users are checked against the user of the event.</source>
   <source><x id="0" equiv-text="${unreadCount}"/> unread</source>
   <note from="lit-localize">Indicates the number of unread notifications in the notification drawer</note>
 </trans-unit>
+<!-- #region Flow Actions -->
+<trans-unit id="flow-action-log-in">
+  <source>Log in</source>
+  <target>Влез</target>
+  <note from="lit-localize">Primary action button for login flows</note>
+</trans-unit>
+<trans-unit id="flow-action-continue">
+  <source>Continue</source>
+  <target>Продължи</target>
+  <note from="lit-localize">Primary action button for continuation</note>
+</trans-unit>
+<trans-unit id="flow-action-submit">
+  <source>Submit</source>
+  <target>Изпрати</target>
+  <note from="lit-localize">Primary action button for form submission</note>
+</trans-unit>
+<trans-unit id="flow-action-reset-password">
+  <source>Reset password</source>
+  <target>Възстанови парола</target>
+  <note from="lit-localize">Primary action button for password reset</note>
+</trans-unit>
+<trans-unit id="flow-action-send-email">
+  <source>Send Email</source>
+  <target>Изпрати имейл</target>
+  <note from="lit-localize">Primary action button for sending email</note>
+</trans-unit>
+<!-- #endregion -->
 <!-- #region Prompt Labels -->
 <trans-unit id="prompt-label-password">
   <source>Password</source>

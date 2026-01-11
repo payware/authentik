@@ -35,6 +35,21 @@ import { customElement, property, state } from "lit/decorators.js";
 import { createRef, ref } from "lit/directives/ref.js";
 import { repeat } from "lit/directives/repeat.js";
 
+/**
+ * Translates common primary action button labels to the current locale.
+ * Falls back to the original text if no translation is found.
+ */
+function translatePrimaryAction(action: string): string {
+    const translations: Record<string, () => string> = {
+        "Log in": () => msg("Log in", { id: "flow-action-log-in" }),
+        "Continue": () => msg("Continue", { id: "flow-action-continue" }),
+        "Submit": () => msg("Submit", { id: "flow-action-submit" }),
+        "Reset password": () => msg("Reset password", { id: "flow-action-reset-password" }),
+        "Send Email": () => msg("Send Email", { id: "flow-action-send-email" }),
+    };
+    return translations[action]?.() ?? action;
+}
+
 import PFAlert from "@patternfly/patternfly/components/Alert/alert.css";
 import PFButton from "@patternfly/patternfly/components/Button/button.css";
 import PFForm from "@patternfly/patternfly/components/Form/form.css";
@@ -49,10 +64,16 @@ export const PasswordManagerPrefill: {
     totp?: string;
 } = {};
 
-export const OR_LIST_FORMATTERS: Intl.ListFormat = new Intl.ListFormat("default", {
-    style: "short",
-    type: "disjunction",
-});
+/**
+ * Creates a disjunction list formatter for the given locale.
+ * Used to format "Email or Username" style labels.
+ */
+function createOrListFormatter(locale: string): Intl.ListFormat {
+    return new Intl.ListFormat(locale, {
+        style: "short",
+        type: "disjunction",
+    });
+}
 
 @customElement("ak-stage-identification")
 export class IdentificationStage extends BaseStage<
@@ -408,7 +429,8 @@ export class IdentificationStage extends BaseStage<
             [UserFieldsEnum.Email]: msg("Email"),
             [UserFieldsEnum.Upn]: msg("UPN"),
         };
-        const label = OR_LIST_FORMATTERS.format(fields.map((f) => uiFields[f]));
+        const orFormatter = createOrListFormatter(this.activeLanguageTag);
+        const label = orFormatter.format(fields.map((f) => uiFields[f]));
 
         // Check if passkey login is enabled to add webauthn to autocomplete
         const passkeyChallenge = (
@@ -491,7 +513,7 @@ export class IdentificationStage extends BaseStage<
                     type="submit"
                     class="pf-c-button pf-m-primary pf-m-block"
                 >
-                    ${this.challenge.primaryAction}
+                    ${translatePrimaryAction(this.challenge.primaryAction)}
                 </button>
             </div>
             ${this.challenge.passwordlessUrl

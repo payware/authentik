@@ -7731,6 +7731,28 @@ Bindings to groups/users are checked against the user of the event.</source>
 <trans-unit id="s567c5a6e42cc5036">
   <source>Maximum page size for API requests.</source>
 </trans-unit>
+<!-- #region Flow Actions -->
+<trans-unit id="flow-action-log-in">
+  <source>Log in</source>
+  <note from="lit-localize">Primary action button for login flows</note>
+</trans-unit>
+<trans-unit id="flow-action-continue">
+  <source>Continue</source>
+  <note from="lit-localize">Primary action button for continuation</note>
+</trans-unit>
+<trans-unit id="flow-action-submit">
+  <source>Submit</source>
+  <note from="lit-localize">Primary action button for form submission</note>
+</trans-unit>
+<trans-unit id="flow-action-reset-password">
+  <source>Reset password</source>
+  <note from="lit-localize">Primary action button for password reset</note>
+</trans-unit>
+<trans-unit id="flow-action-send-email">
+  <source>Send Email</source>
+  <note from="lit-localize">Primary action button for sending email</note>
+</trans-unit>
+<!-- #endregion -->
 <!-- #region Prompt Labels -->
 <trans-unit id="prompt-label-password">
   <source>Password</source>
