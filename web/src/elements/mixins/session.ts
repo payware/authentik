@@ -116,8 +116,6 @@ export const WithSession = createMixin<SessionMixin>(
             })
             public [kAKLocale]!: LocaleContextValue;
 
-            #uiConfig: Readonly<UIConfig> = DefaultUIConfig;
-
             @consume({
                 context: SessionContext,
             })
@@ -129,7 +127,11 @@ export const WithSession = createMixin<SessionMixin>(
             //#region Properties
 
             public get uiConfig(): Readonly<UIConfig> {
-                return this.#uiConfig;
+                if (isAPIResultReady(this.session) && this.session.user) {
+                    const { settings = {} } = this.session.user;
+                    return createUIConfig(settings);
+                }
+                return DefaultUIConfig;
             }
 
             public get currentUser(): Readonly<UserSelf> | null {
@@ -155,10 +157,6 @@ export const WithSession = createMixin<SessionMixin>(
                 if (!isAPIResultReady(nextResult)) {
                     return null;
                 }
-
-                const { settings = {} } = nextResult.user || {};
-
-                this.#uiConfig = createUIConfig(settings);
 
                 return nextResult;
             }
