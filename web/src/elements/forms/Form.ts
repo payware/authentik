@@ -114,6 +114,10 @@ export function serializeForm<T = Record<string, unknown>>(elements: Iterable<AK
             }
 
             if (inputElement.type === "datetime-local") {
+                // Skip disabled inputs or inputs with no value (NaN)
+                if (inputElement.disabled || Number.isNaN(inputElement.valueAsNumber)) {
+                    return;
+                }
                 return assignValue(
                     inputElement,
                     dateToUTC(new Date(inputElement.valueAsNumber)),
@@ -124,6 +128,9 @@ export function serializeForm<T = Record<string, unknown>>(elements: Iterable<AK
             if ("type" in inputElement.dataset && inputElement.dataset.type === "datetime-local") {
                 // Workaround for Firefox <93, since 92 and older don't support
                 // datetime-local fields
+                if (inputElement.disabled || !inputElement.value) {
+                    return;
+                }
                 return assignValue(inputElement, dateToUTC(new Date(inputElement.value)), json);
             }
 
