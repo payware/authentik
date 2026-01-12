@@ -68,7 +68,10 @@ export class AKLocaleLinks extends WithLocale(AKElement) {
     }
 
     private handleLocaleChange(tag: TargetLanguageTag) {
-        setSessionLocale(tag);
+        requestAnimationFrame(() => {
+            this.activeLanguageTag = tag;  // Triggers actual locale change
+            setSessionLocale(tag);          // Persists to session storage
+        });
     }
 
     protected override render() {
@@ -92,9 +95,10 @@ export class AKLocaleLinks extends WithLocale(AKElement) {
                     />
                 </svg>
                 ${this.supportedLocales.map((locale, index) => {
-                    const isActive =
-                        activeLocaleTag === locale.tag ||
-                        (locale.tag === "en" && activeLocaleTag === "en");
+                    // Check if this locale matches the active one
+                    // For "en", match both "en" exactly
+                    // For others like "bg-BG", match the full tag
+                    const isActive = activeLocaleTag === locale.tag;
                     return html`
                         ${index > 0 ? html`<span class="separator">|</span>` : ""}
                         <a
