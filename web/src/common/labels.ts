@@ -79,14 +79,19 @@ export function severityToLevel(severity?: SeverityEnum | null): string {
 /**
  * @todo Add verbose_name field to now vendored OTP devices
  * @todo We seem to have these constants in the `ModelEnum` object in lowercase.
+ * Returns labels as functions to ensure translations are evaluated at render time.
  */
-export const deviceTypeToLabel = new Map<string, string>([
-    ["authentik_stages_authenticator_static.StaticDevice", msg("Static tokens")],
-    ["authentik_stages_authenticator_totp.TOTPDevice", msg("TOTP Device")],
+export const deviceTypeToLabel = new Map<string, () => string>([
+    ["authentik_stages_authenticator_static.StaticDevice", () => msg("Static tokens")],
+    ["authentik_stages_authenticator_totp.TOTPDevice", () => msg("TOTP Device")],
+    [
+        "authentik_stages_authenticator_webauthn.WebAuthnDevice",
+        () => msg("WebAuthn Device", { id: "device-type-webauthn" }),
+    ],
 ]);
 
 export const deviceTypeName = (device: Device) =>
-    deviceTypeToLabel.get(device.type) ?? device?.verboseName ?? "";
+    deviceTypeToLabel.get(device.type)?.() ?? device?.verboseName ?? "";
 
 export function formatDeviceChallengeMessage(deviceChallenge?: DeviceChallenge | null): string {
     switch (deviceChallenge?.deviceClass) {

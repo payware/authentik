@@ -28,7 +28,7 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
  * Falls back to the original label if no translation is found.
  * Uses case-insensitive matching for robustness.
  */
-function translatePromptLabel(label: string): string {
+export function translatePromptLabel(label: string): string {
     const normalizedLabel = label.trim();
     const translations: Record<string, () => string> = {
         // Password variations

@@ -8495,6 +8495,13 @@ Bindings to groups/users are checked against the user of the event.</source>
   <note from="lit-localize">Password requirements hint text</note>
 </trans-unit>
 <!-- #endregion -->
+<!-- #region Device Types -->
+<trans-unit id="device-type-webauthn">
+  <source>WebAuthn Device</source>
+  <target>WebAuthn устройство</target>
+  <note from="lit-localize">MFA device type label for WebAuthn authenticators</note>
+</trans-unit>
+<!-- #endregion -->
 <!-- #region Flow Titles -->
 <trans-unit id="flow-title-sign-in">
   <source>Sign In</source>

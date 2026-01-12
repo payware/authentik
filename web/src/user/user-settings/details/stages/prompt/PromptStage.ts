@@ -5,7 +5,7 @@ import { globalAK } from "#common/global";
 
 import { AKLabel } from "#components/ak-label";
 
-import { PromptStage } from "#flow/stages/prompt/PromptStage";
+import { PromptStage, translatePromptLabel } from "#flow/stages/prompt/PromptStage";
 
 import { PromptTypeEnum, StagePrompt } from "@goauthentik/api";
 
@@ -32,6 +32,7 @@ export class UserSettingsPromptStage extends PromptStage {
 
     renderField(prompt: StagePrompt): TemplateResult {
         const errors = this.challenge?.responseErrors?.[prompt.fieldKey];
+        const translatedLabel = translatePromptLabel(prompt.label);
 
         if (this.shouldRenderInWrapper(prompt)) {
             return html`
@@ -47,7 +48,7 @@ export class UserSettingsPromptStage extends PromptStage {
                             htmlFor: `field-${prompt.fieldKey}`,
                             required: prompt.required,
                         },
-                        prompt.label,
+                        translatedLabel,
                     )}
                     ${this.renderPromptInner(prompt)} ${this.renderPromptHelpText(prompt)}
                 </ak-form-element-horizontal>

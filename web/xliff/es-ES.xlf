@@ -9939,6 +9939,13 @@ Las vinculaciones a grupos/usuarios se verifican en función del usuario del eve
   <note from="lit-localize">Password requirements hint text</note>
 </trans-unit>
 <!-- #endregion -->
+<!-- #region Device Types -->
+<trans-unit id="device-type-webauthn">
+  <source>WebAuthn Device</source>
+  <target>Dispositivo WebAuthn</target>
+  <note from="lit-localize">MFA device type label for WebAuthn authenticators</note>
+</trans-unit>
+<!-- #endregion -->
 <!-- #region Flow Titles -->
 <trans-unit id="flow-title-sign-in">
   <source>Sign In</source>
