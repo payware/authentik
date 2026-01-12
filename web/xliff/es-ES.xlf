@@ -9933,6 +9933,11 @@ Las vinculaciones a grupos/usuarios se verifican en función del usuario del eve
   <target>Nombre de usuario</target>
   <note from="lit-localize">Prompt label for username field</note>
 </trans-unit>
+<trans-unit id="prompt-label-preferred-language">
+  <source>Preferred Language</source>
+  <target>Idioma preferido</target>
+  <note from="lit-localize">Prompt label for preferred language field</note>
+</trans-unit>
 <trans-unit id="prompt-subtext-password-requirements">
   <source>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</source>
   <target>La contraseña debe tener al menos 8 caracteres e incluir mayúsculas, minúsculas, números y caracteres especiales.</target>

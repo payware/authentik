@@ -7790,6 +7790,10 @@ Bindings to groups/users are checked against the user of the event.</source>
   <source>Username</source>
   <note from="lit-localize">Prompt label for username field</note>
 </trans-unit>
+<trans-unit id="prompt-label-preferred-language">
+  <source>Preferred Language</source>
+  <note from="lit-localize">Prompt label for preferred language field</note>
+</trans-unit>
 <trans-unit id="prompt-subtext-password-requirements">
   <source>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</source>
   <note from="lit-localize">Password requirements hint text</note>

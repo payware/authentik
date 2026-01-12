@@ -64,6 +64,11 @@ export function translatePromptLabel(label: string): string {
         "email": () => msg("Email", { id: "prompt-label-email" }),
         "Username": () => msg("Username", { id: "prompt-label-username" }),
         "username": () => msg("Username", { id: "prompt-label-username" }),
+        // Language preference
+        "Preferred Language": () =>
+            msg("Preferred Language", { id: "prompt-label-preferred-language" }),
+        "preferred language": () =>
+            msg("Preferred Language", { id: "prompt-label-preferred-language" }),
     };
     return translations[normalizedLabel]?.() ?? label;
 }

@@ -8489,6 +8489,11 @@ Bindings to groups/users are checked against the user of the event.</source>
   <target>Потребителско име</target>
   <note from="lit-localize">Prompt label for username field</note>
 </trans-unit>
+<trans-unit id="prompt-label-preferred-language">
+  <source>Preferred Language</source>
+  <target>Предпочитан език</target>
+  <note from="lit-localize">Prompt label for preferred language field</note>
+</trans-unit>
 <trans-unit id="prompt-subtext-password-requirements">
   <source>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</source>
   <target>Паролата трябва да е поне 8 символа и да включва главни букви, малки букви, цифра и специален символ.</target>
