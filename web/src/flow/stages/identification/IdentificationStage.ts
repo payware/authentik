@@ -471,6 +471,7 @@ export class IdentificationStage extends BaseStage<
                 ? html`
                       <ak-flow-input-password
                           label=${msg("Password")}
+                          placeholder=${msg("Please enter your password")}
                           input-id="ak-stage-identification-password"
                           required
                           class="pf-c-form__group"

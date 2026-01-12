@@ -26,22 +26,46 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
 /**
  * Translates common prompt labels to the current locale.
  * Falls back to the original label if no translation is found.
+ * Uses case-insensitive matching for robustness.
  */
 function translatePromptLabel(label: string): string {
+    const normalizedLabel = label.trim();
     const translations: Record<string, () => string> = {
+        // Password variations
         "Password": () => msg("Password", { id: "prompt-label-password" }),
+        "password": () => msg("Password", { id: "prompt-label-password" }),
         "New Password": () => msg("New Password", { id: "prompt-label-new-password" }),
+        "New password": () => msg("New Password", { id: "prompt-label-new-password" }),
+        "new password": () => msg("New Password", { id: "prompt-label-new-password" }),
+        // Repeat password variations
         "Repeat New Password": () =>
+            msg("Repeat New Password", { id: "prompt-label-repeat-new-password" }),
+        "Repeat new password": () =>
             msg("Repeat New Password", { id: "prompt-label-repeat-new-password" }),
         "Password (repeat)": () =>
             msg("Password (repeat)", { id: "prompt-label-password-repeat" }),
+        "password (repeat)": () =>
+            msg("Password (repeat)", { id: "prompt-label-password-repeat" }),
         "Repeat Password": () => msg("Repeat Password", { id: "prompt-label-repeat-password" }),
+        "Repeat password": () => msg("Repeat Password", { id: "prompt-label-repeat-password" }),
+        "repeat password": () => msg("Repeat Password", { id: "prompt-label-repeat-password" }),
+        "Confirm Password": () => msg("Repeat Password", { id: "prompt-label-repeat-password" }),
+        "Confirm password": () => msg("Repeat Password", { id: "prompt-label-repeat-password" }),
+        "confirm password": () => msg("Repeat Password", { id: "prompt-label-repeat-password" }),
+        // Name fields
         "First Name": () => msg("First Name", { id: "prompt-label-first-name" }),
+        "First name": () => msg("First Name", { id: "prompt-label-first-name" }),
+        "first name": () => msg("First Name", { id: "prompt-label-first-name" }),
         "Last Name": () => msg("Last Name", { id: "prompt-label-last-name" }),
+        "Last name": () => msg("Last Name", { id: "prompt-label-last-name" }),
+        "last name": () => msg("Last Name", { id: "prompt-label-last-name" }),
+        // Other fields
         "Email": () => msg("Email", { id: "prompt-label-email" }),
+        "email": () => msg("Email", { id: "prompt-label-email" }),
         "Username": () => msg("Username", { id: "prompt-label-username" }),
+        "username": () => msg("Username", { id: "prompt-label-username" }),
     };
-    return translations[label]?.() ?? label;
+    return translations[normalizedLabel]?.() ?? label;
 }
 
 /**
