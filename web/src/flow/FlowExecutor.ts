@@ -1,5 +1,5 @@
 import "#elements/LoadingOverlay";
-import "#elements/locale/ak-locale-select";
+import "#elements/locale/ak-locale-links";
 import "#flow/components/ak-brand-footer";
 import "#flow/components/ak-flow-card";
 import "#flow/sources/apple/AppleLoginInit";
@@ -475,10 +475,7 @@ export class FlowExecutor
     public override render(): TemplateResult {
         const { component } = this.challenge || {};
 
-        return html`<ak-locale-select
-                part="locale-select"
-                exportparts="label:locale-select-label,select:locale-select-select"
-            ></ak-locale-select>
+        return html`<ak-locale-links part="locale-links"></ak-locale-links>
 
             <header class="pf-c-login__header">${this.renderInspectorButton()}</header>
             <main

@@ -1,0 +1,77 @@
+:host {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.locale-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.icon {
+    height: 1.2rem;
+    width: 1.2rem;
+    stroke-width: 0.5;
+    stroke: var(--pf-global--Color--light-100, #fff);
+    fill: var(--pf-global--Color--light-100, #fff);
+    filter: var(--ak-global--background-contrast-Filter);
+}
+
+.separator {
+    color: var(--pf-global--Color--light-100, #fff);
+    filter: var(--ak-global--background-contrast-Filter);
+}
+
+a {
+    color: var(--pf-global--Color--light-100, #fff);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+    filter: var(--ak-global--background-contrast-Filter);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.active {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* For smaller screens or when card overlaps */
+@media (width <= 61.25rem) and (height <= 61.25rem) {
+    :host {
+        --ak-global--background-contrast-Filter: none;
+    }
+
+    .icon,
+    .separator,
+    a {
+        color: var(--ak-global--background-contrast, #151515);
+        stroke: var(--ak-global--background-contrast, #151515);
+        fill: var(--ak-global--background-contrast, #151515);
+        filter: none;
+    }
+}
+
+/* Mobile adjustments */
+@media (width <= 35rem) {
+    :host {
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .locale-links {
+        font-size: 0.8rem;
+        gap: 6px;
+    }
+
+    .icon {
+        height: 1rem;
+        width: 1rem;
+    }
+}
