@@ -8500,6 +8500,43 @@ Bindings to groups/users are checked against the user of the event.</source>
   <note from="lit-localize">Password requirements hint text</note>
 </trans-unit>
 <!-- #endregion -->
+<!-- #region Prompt Placeholders -->
+<trans-unit id="prompt-placeholder-password">
+  <source>Password</source>
+  <target>Парола</target>
+  <note from="lit-localize">Placeholder for password input field</note>
+</trans-unit>
+<trans-unit id="prompt-placeholder-new-password">
+  <source>New Password</source>
+  <target>Нова парола</target>
+  <note from="lit-localize">Placeholder for new password input field</note>
+</trans-unit>
+<trans-unit id="prompt-placeholder-password-repeat">
+  <source>Password (repeat)</source>
+  <target>Парола (повторете)</target>
+  <note from="lit-localize">Placeholder for password repeat input field</note>
+</trans-unit>
+<trans-unit id="prompt-placeholder-repeat-new-password">
+  <source>Repeat New Password</source>
+  <target>Повторете новата парола</target>
+  <note from="lit-localize">Placeholder for repeat new password input field</note>
+</trans-unit>
+<trans-unit id="prompt-placeholder-repeat-password">
+  <source>Repeat Password</source>
+  <target>Повторете паролата</target>
+  <note from="lit-localize">Placeholder for repeat password input field</note>
+</trans-unit>
+<trans-unit id="prompt-placeholder-first-name">
+  <source>First Name</source>
+  <target>Име</target>
+  <note from="lit-localize">Placeholder for first name input field</note>
+</trans-unit>
+<trans-unit id="prompt-placeholder-last-name">
+  <source>Last Name</source>
+  <target>Фамилия</target>
+  <note from="lit-localize">Placeholder for last name input field</note>
+</trans-unit>
+<!-- #endregion -->
 <!-- #region Device Types -->
 <trans-unit id="device-type-webauthn">
   <source>WebAuthn Device</source>

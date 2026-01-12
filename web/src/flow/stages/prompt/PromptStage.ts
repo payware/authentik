@@ -74,6 +74,31 @@ export function translatePromptLabel(label: string): string {
 }
 
 /**
+ * Translates common prompt placeholder text to the current locale.
+ * Falls back to the original text if no translation is found.
+ */
+function translatePromptPlaceholder(placeholder: string): string {
+    const normalizedPlaceholder = placeholder.trim();
+    const translations: Record<string, () => string> = {
+        // Password placeholders
+        "Password": () => msg("Password", { id: "prompt-placeholder-password" }),
+        "password": () => msg("Password", { id: "prompt-placeholder-password" }),
+        "New Password": () => msg("New Password", { id: "prompt-placeholder-new-password" }),
+        "New password": () => msg("New Password", { id: "prompt-placeholder-new-password" }),
+        "Password (repeat)": () =>
+            msg("Password (repeat)", { id: "prompt-placeholder-password-repeat" }),
+        "Repeat New Password": () =>
+            msg("Repeat New Password", { id: "prompt-placeholder-repeat-new-password" }),
+        "Repeat Password": () =>
+            msg("Repeat Password", { id: "prompt-placeholder-repeat-password" }),
+        // Name placeholders
+        "First Name": () => msg("First Name", { id: "prompt-placeholder-first-name" }),
+        "Last Name": () => msg("Last Name", { id: "prompt-placeholder-last-name" }),
+    };
+    return translations[normalizedPlaceholder]?.() ?? placeholder;
+}
+
+/**
  * Translates common prompt sub_text/help text to the current locale.
  * Falls back to the original text if no translation is found.
  */
@@ -134,7 +159,7 @@ export class PromptStage extends WithCapabilitiesConfig(
                     type="text"
                     id=${fieldId}
                     name="${prompt.fieldKey}"
-                    placeholder="${prompt.placeholder}"
+                    placeholder="${translatePromptPlaceholder(prompt.placeholder)}"
                     autocomplete="off"
                     class="pf-c-form-control"
                     ?required=${prompt.required}
@@ -199,7 +224,7 @@ ${prompt.initialValue}</textarea
                     type="password"
                     id=${fieldId}
                     name="${prompt.fieldKey}"
-                    placeholder="${prompt.placeholder}"
+                    placeholder="${translatePromptPlaceholder(prompt.placeholder)}"
                     autocomplete="new-password"
                     class="pf-c-form-control"
                     ?required=${prompt.required}
