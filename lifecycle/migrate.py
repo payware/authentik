@@ -108,6 +108,12 @@ def run_migrations():
                     LOGGER.info("Migration needs to be applied", migration=migration_path.name)
                     migration.run()
                     LOGGER.info("Migration finished applying", migration=migration_path.name)
+                else:
+                    # Rollback any implicit transaction from needs_migration() check
+                    # to avoid leaving idle transactions that block other operations
+                    conn.rollback()
+        # Ensure no stale transactions before Django migrations
+        conn.rollback()
         LOGGER.info("applying django migrations")
         environ.setdefault("DJANGO_SETTINGS_MODULE", "authentik.root.settings")
         try:

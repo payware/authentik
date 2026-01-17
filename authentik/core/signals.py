@@ -4,6 +4,7 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from django.contrib.auth.signals import user_logged_in
 from django.core.cache import cache
+from django.db import transaction
 from django.db.models import Model
 from django.db.models.signals import post_delete, post_save, pre_save
 from django.dispatch import Signal, receiver
@@ -15,6 +16,7 @@ from authentik.core.models import (
     AuthenticatedSession,
     BackchannelProvider,
     ExpiringModel,
+    Group,
     Session,
     User,
     default_token_duration,
@@ -83,3 +85,81 @@ def expiring_model_pre_save(sender: type[Model], instance: Model, **_):
         return
     if instance.expiring and instance.expires is None:
         instance.expires = default_token_duration()
+
+
+# payware partner group mapping based on user attributes
+PAYWARE_GROUP_MAPPING = {
+    "BANK": "payware-partners-payment-institutions",
+    "MERCHANT": "payware-partners-merchants",
+    "ISV": "payware-partners-isvs",
+}
+
+
+@receiver(post_save, sender=User)
+def assign_user_to_partner_group(sender: type[Model], instance: User, created: bool, **_):
+    """
+    Automatically assign users to partner groups based on their attributes.
+
+    Expected attributes:
+        - tenant_type: "BANK" or "MERCHANT"
+        - isISV: true/false (only relevant for MERCHANT)
+
+    Group mapping:
+        - BANK -> payware-partners-payment-institutions
+        - MERCHANT + isISV=false -> payware-partners-merchants
+        - MERCHANT + isISV=true -> payware-partners-isvs
+    """
+    tenant_type = instance.attributes.get("tenant_type")
+    if not tenant_type:
+        return
+
+    # Determine target group
+    if tenant_type == "BANK":
+        group_name = PAYWARE_GROUP_MAPPING["BANK"]
+    elif tenant_type == "MERCHANT":
+        is_isv = instance.attributes.get("isISV", False)
+        if is_isv:
+            group_name = PAYWARE_GROUP_MAPPING["ISV"]
+        else:
+            group_name = PAYWARE_GROUP_MAPPING["MERCHANT"]
+    else:
+        LOGGER.debug("Unknown tenant_type, skipping group assignment", tenant_type=tenant_type)
+        return
+
+    try:
+        group = Group.objects.filter(name=group_name).first()
+        if not group:
+            LOGGER.warning(
+                "Partner group not found, skipping assignment",
+                group_name=group_name,
+                user=instance.username,
+            )
+            return
+
+        # Check if already a member
+        if instance.ak_groups.filter(group_uuid=group.group_uuid).exists():
+            LOGGER.debug(
+                "User already in group",
+                user=instance.username,
+                group=group_name,
+            )
+            return
+
+        # Add user to group
+        with transaction.atomic():
+            instance.ak_groups.add(group)
+
+        LOGGER.info(
+            "Assigned user to partner group",
+            user=instance.username,
+            group=group_name,
+            tenant_type=tenant_type,
+            is_isv=instance.attributes.get("isISV", False),
+        )
+    except Exception as exc:
+        LOGGER.error(
+            "Failed to assign user to partner group",
+            user=instance.username,
+            group_name=group_name,
+            error=str(exc),
+        )
